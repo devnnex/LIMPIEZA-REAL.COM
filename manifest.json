@@ -1,0 +1,12 @@
+{
+  "name": "Limpieza Real",
+  "short_name": "Limpieza Real",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    { "src": "./images/favicon.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "./images/favicon.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
