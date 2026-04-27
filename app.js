@@ -803,16 +803,20 @@ async function submitBooking(confirmBtn) {
   const fechaBonita = state.selectedDate
     ? state.selectedDate.toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
     : 'No especificada';
+  const selectedServicesText = state.cart
+    .map((item, index) => `${index + 1}. ${item.serviceObj.title}`)
+    .join('\n');
 
   const waMessage = encodeURIComponent(
-    `Hola, soy ${name}. Quiero agendar mi limpieza:\n` +
-    `Articulo(s): ${state.cart.map(item => item.serviceObj.title).join(', ')}\n` +
-    `Tecnico: ${selectedTechnician ? selectedTechnician.name : 'No especificado'}\n` +
-    `Fecha: ${fechaBonita}\n` +
-    `Horario: ${getSelectedShiftLabel()}\n` +
-    `Direccion: ${address}\n` +
-    `Tel: ${phone}\n` +
-    'Estare atento a tu respuesta, me interesa mucho lavar estos articulos.'
+    `✨ *Nueva solicitud de limpieza* ✨\n\n` +
+    `Hola, soy *${name}* y quiero agendar mi servicio.\n\n` +
+    `🧺 *Articulos a lavar:*\n${selectedServicesText}\n\n` +
+    `📅 *Fecha:* ${fechaBonita}\n` +
+    `🕒 *Horario:* ${getSelectedShiftLabel()}\n` +
+    `👨‍🔧 *Tecnico:* ${selectedTechnician ? selectedTechnician.name : 'No especificado'}\n\n` +
+    `📍 *Direccion:* ${address}\n` +
+    `📞 *Telefono:* ${phone}\n\n` +
+    '💬 Estare atento a tu respuesta, me interesa mucho lavar estos articulos.'
   );
 
   const technicianWhatsapp = state.selectedBarberWhatsapp || '';
