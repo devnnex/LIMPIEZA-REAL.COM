@@ -1,4 +1,4 @@
-﻿const SERVICES_PER_PAGE = 6;
+const SERVICES_PER_PAGE = 6;
 const DATES_PER_PAGE = 7;
 const API_URL = "https://script.google.com/macros/s/AKfycbwzMH84NsUIC8akJmrcoyFUTAGJKXvh5tFVzdHo0jJWerRXjvat6irgPe65in_wA8kK/exec";
 const SHIFT_WINDOWS = [
@@ -70,6 +70,7 @@ let state = {
   clientAddress: null,
   selectedBarberWhatsapp: null
 };
+let toastTimer = null;
 
 function dateToYMD(d) {
   if (!d) return '';
@@ -79,12 +80,21 @@ function dateToYMD(d) {
   return `${year}-${month}-${day}`;
 }
 
-function showToast(msg, ms = 2200) {
+function showToast(msg, type = 'warning', ms = 2200) {
   const toast = document.getElementById('toast');
   if (!toast) return;
+
+  const toastType = type === 'success' ? 'success' : 'warning';
+  if (toastTimer) clearTimeout(toastTimer);
+
+  toast.classList.remove('show', 'toast-success', 'toast-warning');
   toast.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), ms);
+  toast.classList.add(`toast-${toastType}`);
+  requestAnimationFrame(() => toast.classList.add('show'));
+
+  toastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, ms);
 }
 
 function wait(ms) {
@@ -328,7 +338,7 @@ function addToCart(serviceId) {
 
   renderCart();
   setActiveStep(3);
-  showToast('Articulo agregado. Continua con Agenda en el carrito.');
+  showToast('Articulo agregado. Continua con Agenda en el carrito.', 'success');
 
   const drawer = document.getElementById('drawer');
   if (drawer) drawer.classList.add('open');
@@ -637,12 +647,20 @@ function renderBookingStep() {
     }
 
     hoursContainer.innerHTML = '<h4>Franjas disponibles</h4>';
+    const hoursLoader = document.createElement('div');
+    hoursLoader.className = 'hours-loader';
+    hoursLoader.innerHTML = '<span class="hours-loader-spinner" aria-hidden="true"></span><span>Cargando horarios...</span>';
+    hoursContainer.appendChild(hoursLoader);
+
     const grid = document.createElement('div');
     grid.className = 'hours-grid shift-grid';
-    grid.innerHTML = '<p class="empty">Cargando horarios...</p>';
+    grid.style.display = 'none';
     hoursContainer.appendChild(grid);
 
     const renderShiftCapsules = slotsByShift => {
+      if (hoursLoader.isConnected) hoursLoader.remove();
+      grid.style.display = 'grid';
+
       if (state.selectedShift && slotsByShift[state.selectedShift].length === 0) {
         state.selectedShift = null;
         state.selectedTime = null;
@@ -817,7 +835,7 @@ async function submitBooking(confirmBtn) {
     let result = null;
     try { result = await response.json(); } catch (error) { result = null; }
 
-    if (result && result.success) showToast('Cita registrada correctamente.');
+    if (result && result.success) showToast('Cita registrada correctamente.', 'success');
     else if (typeof Swal !== 'undefined') {
       Swal.fire({
         title: 'Cita agendada',
@@ -961,7 +979,7 @@ function resetApp() {
       state.clientPhone = phone;
       state.clientAddress = address;
       navigateToStep(2, { bypassGuards: true });
-      showToast('Paso 2 activo. Elige el articulo que deseas lavar.');
+      showToast('Paso 2 activo. Elige el articulo que deseas lavar.', 'success');
     });
   }
 
