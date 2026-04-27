@@ -1,0 +1,105 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Limpieza Real | Reserva</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-overlay">
+    <div class="hero-address">
+      <p>Adios bacterias, acaros y malos olores</p>
+      <p>Bucaramanga, Santander</p>
+    </div>
+
+    <h1 class="hero-title">Limpieza Real</h1>
+    <p class="hero-subtitle">Limpieza profunda de muebles y textiles para tu hogar</p>
+
+    <div class="hero-category">Empresa Colombiana</div>
+
+    <div class="hero-actions">
+      <a href="https://www.instagram.com/limpiezareal.co?igsh=YnNyNnZ3cWVicHR3" target="_blank" class="icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="tel:+573156207222" class="icon" aria-label="Telefono"><i class="fas fa-phone"></i></a>
+      <a href="https://www.facebook.com/profile.php?id=61550272628557&mibextid=wwXIfr" target="_blank" class="icon" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="https://www.tiktok.com/@limpieza__real?_t=ZS-90G4G6cNRRf&_r=1" target="_blank" class="icon" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+    </div>
+
+    <div class="hero-rating">5.0</div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="workflow" aria-label="Flujo de reserva">
+    <article class="workflow-step active" data-step="1"><span class="step-number">1</span><div><h4>Tus datos</h4><p>Nombre, telefono y direccion</p></div></article>
+    <article class="workflow-step" data-step="2"><span class="step-number">2</span><div><h4>Articulo</h4><p>Elige lo que deseas lavar</p></div></article>
+    <article class="workflow-step" data-step="3"><span class="step-number">3</span><div><h4>Agenda</h4><p>Fecha, hora y confirmacion</p></div></article>
+  </section>
+
+  <section id="client-form-section" class="client-form-section">
+    <h3>Paso 1. Tus datos de contacto</h3>
+    <p class="section-copy">Completa este paso para continuar. Luego te pediremos elegir el articulo a lavar.</p>
+    <div class="client-form">
+      <label for="client-name">Nombre completo</label>
+      <input type="text" id="client-name" placeholder="Ej: Maria Gomez" autocomplete="name" required>
+      <label for="client-phone">Telefono</label>
+      <input type="tel" id="client-phone" placeholder="Ej: 3156207222" autocomplete="tel" required>
+      <label for="client-address">Direccion completa con barrio</label>
+      <input type="text" id="client-address" placeholder="Ej: Calle 45 #12-34, Barrio Centro" autocomplete="street-address" required>
+      <button id="form-next" class="btn primary">Continuar y elegir articulo</button>
+    </div>
+  </section>
+
+  <section id="service-intro" class="service-intro" style="display:none;">
+    <h3>Paso 2. Elige el articulo que deseas lavar</h3>
+    <p>Sin precios visibles. Selecciona uno o varios articulos y luego abre tu carrito para agendar fecha y hora.</p>
+  </section>
+
+  <nav class="tabs" style="display:none;">
+    <button class="tab active" data-tab="all">Servicios</button>
+    <button class="tab" data-tab="details">Detalles</button>
+    <button class="tab" data-tab="reviews">Resenas</button>
+  </nav>
+
+  <section class="filters" style="display:none;">
+    <div class="pill-list"></div>
+    <div class="search"><input id="search" placeholder="Buscar articulo o servicio"></div>
+  </section>
+
+  <section class="services-section" style="display:none;">
+    <div id="services-list" class="services-list"></div>
+    <div class="pager">
+      <button id="prev-page" class="pager-btn" aria-label="Pagina anterior">&larr;</button>
+      <div id="page-indicator">1 / 1</div>
+      <button id="next-page" class="pager-btn" aria-label="Pagina siguiente">&rarr;</button>
+    </div>
+  </section>
+
+  <button id="cart-toggle" class="cart-fab" style="display:none;" aria-label="Abrir carrito">
+    <i class="fas fa-bag-shopping"></i><span id="cart-count">0</span>
+  </button>
+
+  <aside id="drawer" class="drawer" aria-label="Carrito y agenda">
+    <div class="drawer-header"><h2>Agenda tu servicio</h2><button id="drawer-close" class="close" aria-label="Cerrar">x</button></div>
+    <div id="cart-contents" class="drawer-body"></div>
+    <div class="drawer-footer"><button id="next-step" class="btn primary disabled">Continuar</button></div>
+  </aside>
+
+  <div id="toast" class="toast"></div>
+</main>
+
+<div id="loader" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); color:#fff; justify-content:center; align-items:center; flex-direction:column; z-index:9999;">
+  <div class="spinner"></div>
+  <p>Cargando...</p>
+</div>
+
+<footer class="footer">
+  <p>Made By <strong><a href="https://www.instagram.com/devnex.bca?igsh=MXIwMDU2bm8wd2NudQ%3D%3D&utm_source=qr">Devnex</a></strong></p>
+</footer>
+
+<script src="app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>
